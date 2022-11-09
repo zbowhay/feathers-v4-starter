@@ -1,0 +1,23 @@
+import { Knex } from 'knex';
+
+export async function up(knex: Knex): Promise<void> {
+  knex.schema.raw(`
+    CREATE TABLE table_name (
+      id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
+      ...
+      columns go here
+      ...
+      created_at timestamptz NOT NULL,
+      updated_at timestamptz NOT NULL
+    );
+  `);
+
+  knex.schema.raw(`CREATE INDEX idx_table_name_column ON table_name USING BTREE(column);`)
+  knex.schema.raw(`CREATE INDEX idx_table_name_jsoncolumn ON table_name USING GIN(jsoncolumn);`)
+  knex.schema.raw(`CREATE INDEX idx_table_name_column_column2 ON table_name USING BTREE(column, column2);`)
+  knex.schema.raw(`CREATE INDEX idx_table_name_jsoncolumn_jsoncolumn2 ON table_name USING GIN(jsoncolumn, jsoncolumn2);`)
+}
+
+export async function down(knex: Knex): Promise<void> {
+  knex.schema.raw(`DROP TABLE table_name;`);
+}

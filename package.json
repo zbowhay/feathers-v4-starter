@@ -1,0 +1,107 @@
+{
+  "name": "feathers",
+  "version": "0.0.1",
+  "description": "Tailored starter template for building out APIs with feathers v4 as the underlying framework",
+  "author": "Zachary Bowhay",
+  "private": true,
+  "license": "UNLICENSED",
+  "types": "dist/",
+  "engines": {
+    "node": "^18.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "scripts": {
+    "build": "shx rm -rf dist/ && tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "start": "npm run build && node dist/",
+    "start:dev": "nodemon src/index.ts",
+    "test": "NODE_ENV=test nyc mocha \"test/**/*.spec.ts\" --exit",
+    "db:up": "lpg-env && lpg-up",
+    "db:down": "lpg-down",
+    "db:create": "npm run db:create:dev && npm run db:create:test",
+    "db:create:dev": "createdb feathers",
+    "db:create:test": "createdb feathers_test",
+    "db:migrate:make": "knex migrate:make",
+    "db:migrate:rollback": "knex migrate:rollback",
+    "db:migrate:latest": "knex migrate:latest"
+  },
+  "dependencies": {
+    "@feathersjs/authentication": "^4.5.15",
+    "@feathersjs/authentication-local": "^4.5.15",
+    "@feathersjs/authentication-oauth": "^4.5.15",
+    "@feathersjs/configuration": "^4.5.15",
+    "@feathersjs/errors": "^4.5.15",
+    "@feathersjs/express": "^4.5.15",
+    "@feathersjs/feathers": "^4.5.15",
+    "@feathersjs/socketio": "^4.5.15",
+    "@feathersjs/transport-commons": "^4.5.15",
+    "@sinclair/typebox": "^0.25.2",
+    "ajv": "^8.11.0",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^2.1.1",
+    "compression": "^1.7.4",
+    "config": "^3.3.8",
+    "cors": "^2.8.5",
+    "feathers-knex": "^8.0.1",
+    "helmet": "^5.1.1",
+    "knex": "^2.3.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "pg": "^8.8.0",
+    "serve-favicon": "^2.5.0",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/compression": "^1.7.2",
+    "@types/config": "^3.3.0",
+    "@types/cors": "^2.8.12",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/lodash": "^4.14.188",
+    "@types/mocha": "^10.0.0",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^18.11.9",
+    "@types/serve-favicon": "^2.5.3",
+    "@types/sinon": "^10.0.13",
+    "@types/sinon-chai": "^3.2.9",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "axios": "^1.1.3",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.19.0",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.20",
+    "nyc": "^15.1.0",
+    "prettier": "^2.7.1",
+    "shx": "^0.3.4",
+    "sinon": "^14.0.2",
+    "sinon-chai": "^3.7.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.7.4"
+  },
+  "directories": {
+    "dist": "src",
+    "test": "test/",
+    "config": "config/"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "ignore": []
+  },
+  "nyc": {
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
+    "exclude": [
+      "**/*.spec.ts",
+      "**/*channels.ts"
+    ]
+  }
+}

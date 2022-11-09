@@ -1,0 +1,6 @@
+{
+  "postgres": {
+    "client": "pg",
+    "connection": "postgres://postgres:pass@localhost:5432/feathers_test"
+  }
+}
